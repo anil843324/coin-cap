@@ -1,16 +1,46 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { productList } from "../redux/productAction";
 const Home = () => {
   const dispatch = useDispatch();
 
+  const [visible, setVisible] = useState(50);
   const currencyData = useSelector((state) => state.productData);
 
   console.log("Data in Main Component from saga", currencyData);
 
+  const showMoreItems = () => {
+    setVisible((prv) => prv + 50);
+  };
+
+// currency covert
+function convertToInternationalCurrencySystem (labelValue) {
+
+  // Nine Zeroes for Billions
+  return Math.abs(Number(labelValue)) >= 1.0e+9
+
+  ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + "b"
+  // Six Zeroes for Millions 
+  : Math.abs(Number(labelValue)) >= 1.0e+6
+
+  ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + "m"
+  // Three Zeroes for Thousands
+  : Math.abs(Number(labelValue)) >= 1.0e+3
+
+  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + "k"
+
+  : Math.abs(Number(labelValue));
+
+}
+
+// alert( convertToInternationalCurrencySystem (6800000) );
+
+
   useEffect(() => {
     dispatch(productList());
   }, []);
+  
+
 
   return (
     <div>
@@ -45,7 +75,7 @@ const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {currencyData.map((ele) => (
+            {currencyData.slice(0, visible).map((ele) => (
               <>
                 <tr className="border-b border-gray-200 dark:border-gray-700">
                   <th
@@ -58,37 +88,63 @@ const Home = () => {
                     scope="row"
                     className="py-4 px-6  font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
                   >
-                    <img
-                      src={`https://assets.coincap.io/assets/icons/${ele.symbol.toLowerCase()}@2x.png`}
-                      alt="coinlogo"
-                      className=" w-7 h-7 "
-                    />
+                    <div className=" flex items-center  gap-4">
+                      <img
+                        src={`https://assets.coincap.io/assets/icons/${ele.symbol.toLowerCase()}@2x.png`}
+                        alt="coinlogo"
+                        className=" w-7 h-7 "
+                      />
+                      <div className="flex flex-col">
+                        <span>{ele.name} </span>
+                        <span className=" text-gray-400  font-normal text-[10px]"  > {ele.symbol}</span>
+                      </div>
+                    </div>
+
+                   
                   </th>
                   <td className="py-4 px-6">
                     ${Number(ele.priceUsd).toFixed(2)}
                   </td>
-                  <td className="py-4 px-6 bg-gray-50 dark:bg-gray-800">
-                    ${(Math.abs(Number(ele.marketCapUsd)) / 1.0e9).toFixed(2)}b
+                  <td className="py-4 px-6 bg-gray-50 dark:bg-gray-800">                  
+                  ${convertToInternationalCurrencySystem (ele.marketCapUsd)}
                   </td>
                   <td className="py-4 px-6">
                     $ {Number(ele.vwap24Hr).toFixed(2)}
                   </td>
-                  <td className="py-4 px-6">
-                    {(Math.abs(Number(ele.supply)) / 1.0e6).toFixed(2)}m
+                  <td className="py-4 px-6">                 
+                    {convertToInternationalCurrencySystem (ele.supply)}
                   </td>
                   <td className="py-4 px-6">
-                    {(Math.abs(Number(ele.volumeUsd24Hr)) / 1.0e9).toFixed(2)}b
+                  ${convertToInternationalCurrencySystem (ele.volumeUsd24Hr)}                   
                   </td>
-                  <td className="py-4 px-6">
-                    {" "}
+                 
+                  
+                   {
+                    
+                     
+                    ele.changePercent24Hr.slice(0, 1) ==='-' ? <td className="py-4 px-6 text-[#ca3434]   "> 
+                    {Number(ele.changePercent24Hr).toFixed(2)}%
+                  </td> :<td className="py-4 px-6  text-[#18c683]  "> 
                     {Number(ele.changePercent24Hr).toFixed(2)}%
                   </td>
-                  {/* (Math.abs(Number(supply)) / 1.0e+6).toFixed(2)*/}
+                     
+                   }
+             
+
                 </tr>
               </>
             ))}
           </tbody>
         </table>
+        <div className=" flex justify-center">
+          <button
+            onClick={showMoreItems}
+            type="button"
+            className="text-white mt-5   bg-gradient-to-r from-[#18c683] via-[#18c683] to-[#18c683] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-[#18c683] dark:focus:ring-[#18c683] shadow-lg shadow-[#18c683] dark:shadow-lg dark:shadow-[#18c683] font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-5 "
+          >
+            View More
+          </button>
+        </div>
       </div>
     </div>
   );
