@@ -50,14 +50,18 @@ useEffect(() => {
 
   return (
     <div>
-      <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <div className="overflow-x-auto relative shadow-md  sm:rounded-lg">
+           
+           <div className="max-w-[1128px] shadow-lg  dark:shadow-lg  rounded-lg  mx-auto">
+
+          
+        <table className="w-full text-sm text-left  text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
             <tr>
-              <th scope="col" className="py-3 px-6 bg-gray-50 dark:bg-gray-800">
+              <th scope="col" className="py-3 px-6">
                 Rank
               </th>
-              <th scope="col" className="py-3 px-6 bg-gray-50 dark:bg-gray-800">
+              <th scope="col" className="py-3 px-6 ">
                 Name
               </th>
               <th scope="col" className="py-3 px-6">
@@ -83,16 +87,16 @@ useEffect(() => {
           <tbody>
             {currencyData.slice(0, visible).map((ele) => (
               <>
-                <tr className="border-b border-gray-200 dark:border-gray-700">
+                <tr className="border-b border-gray-200 ">
                   <th
                     scope="row"
-                    className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
+                    className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap  dark:text-white "
                   >
                     {ele.rank}
                   </th>
                   <th
                     scope="row"
-                    className="py-4 px-6  font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
+                    className="py-4 px-6  font-medium text-gray-900 whitespace-nowrap  dark:text-white "
                   >
                     <div className=" flex items-center  gap-4">
                       <img
@@ -111,7 +115,7 @@ useEffect(() => {
                   <td className="py-4 px-6">
                     ${Number(ele.priceUsd).toFixed(2)}
                   </td>
-                  <td className="py-4 px-6 bg-gray-50 dark:bg-gray-800">                  
+                  <td className="py-4 px-6  ">                  
                   ${convertToInternationalCurrencySystem (ele.marketCapUsd)}
                   </td>
                   <td className="py-4 px-6">
@@ -142,6 +146,7 @@ useEffect(() => {
             ))}
           </tbody>
         </table>
+        </div>
         <div className=" flex justify-center">
           <button
             onClick={showMoreItems}
