@@ -38,7 +38,7 @@ function convertToInternationalCurrencySystem (labelValue) {
 useEffect(() => {
 	let interval = setInterval(() => {
 		dispatch(productList())
-	}, 5000);
+	}, 2000);
 	return () => {
 		clearInterval(interval);
 	};
@@ -50,7 +50,7 @@ useEffect(() => {
 
   return (
     <div>
-      <div className="overflow-x-auto relative shadow-md  sm:rounded-lg">
+      <div className="overflow-x-auto relative   sm:rounded-lg">
            
            <div className="max-w-[1128px] shadow-lg  dark:shadow-lg  rounded-lg  mx-auto">
 
