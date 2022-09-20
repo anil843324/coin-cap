@@ -33,12 +33,18 @@ function convertToInternationalCurrencySystem (labelValue) {
 
 }
 
-// alert( convertToInternationalCurrencySystem (6800000) );
+
+// api call after 5 seconds 
+useEffect(() => {
+	let interval = setInterval(() => {
+		dispatch(productList())
+	}, 5000);
+	return () => {
+		clearInterval(interval);
+	};
+}, []);
 
 
-  useEffect(() => {
-    dispatch(productList());
-  }, []);
   
 
 
