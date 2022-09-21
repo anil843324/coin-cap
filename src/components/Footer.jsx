@@ -1,5 +1,7 @@
 import React from "react";
 
+import {BsTwitter} from "react-icons/bs"
+import {AiFillFacebook} from "react-icons/ai"
 const Footer = () => {
   return (
     <div className=" ">
@@ -37,7 +39,7 @@ const Footer = () => {
             <div>
               <h2>DISCLAIMER</h2>
               {/* child div */}
-              <p className=" w-[300px] ">
+              <p className=" w-[300px]  text-white  opacity-50 ">
                 Neither ShapeShift AG nor CoinCap are in  any way associated with
                 CoinMarketCap,  LLC or any of its goods and services.
               </p>
@@ -48,8 +50,10 @@ const Footer = () => {
         <div>
           <div className="flex flex-col">
             <h2>FOLLOWS US</h2>
-            <span>Twitter</span>
-            <span>FaceBook</span>
+             <div className=" flex gap-2  cursor-pointer  ">        
+            <span> <BsTwitter size={25} color="white"  className=" opacity-50 hover:opacity-100 "  /> </span>
+            <span> <AiFillFacebook  size={25} color="white"  className=" opacity-50 hover:opacity-100 " /> </span>
+            </div>
           </div>
         </div>
         </div>
@@ -61,15 +65,15 @@ const Footer = () => {
 
             {/* inner child */}
          
-             <div className="flex flex-col">            
-            <a href="/">
+             <div className="flex flex-col gap-2">            
+            <a href="/"  className=" opacity-50 hover:opacity-100 ">
               <img
                 src="	https://coincap.io/static/images/stores/google_play.svg"
                 alt="icon"
               />
             </a>
 
-            <a href="/">
+            <a href="/"  className=" opacity-50 hover:opacity-100 ">
               <img
                 src="	https://coincap.io/static/images/stores/apple_store.svg"
                 alt="icon"
